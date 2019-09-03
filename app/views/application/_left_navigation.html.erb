@@ -17,9 +17,6 @@
         <%= link_to 'Logs', new_logs_search_path, class: active_tab('logs') %>
       </li>
     <% else %>
-      <li>
-        <%= link_to 'Overview', overview_index_path, class: active_tab(overview_index_path) %>
-      </li>
       <% if current_organisation&.ips&.empty? %>
         <li>
           <%= link_to 'Setup', new_organisation_setup_instructions_path, class: active_tab(new_organisation_setup_instructions_path) + active_tab('mou') %>
