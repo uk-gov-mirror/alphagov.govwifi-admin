@@ -14,6 +14,8 @@ services:
       - "8080:3000"
     stdin_open: true
     tty: true
+    environment:
+      - BYPASS_2FA=true
 
 volumes:
   tmp:
