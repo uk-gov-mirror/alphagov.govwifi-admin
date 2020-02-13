@@ -1,4 +1,4 @@
-<% mou_attached = organisation.signed_mou.attached? %>
+<% mou_attached = organisation.has_signed_mou? %>
 
 <% if mou_attached %>
   <p class="govuk-body">

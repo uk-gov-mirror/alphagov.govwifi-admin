@@ -26,6 +26,10 @@ class Organisation < ApplicationRecord
     end
   end
 
+  def has_signed_mou?
+    signed_mou.attached?
+  end
+
   def self.fetch_organisations_from_register
     UseCases::Organisation::FetchOrganisationRegister.new(
       organisations_gateway: Gateways::GovukOrganisationsRegisterGateway.new,
@@ -36,7 +40,7 @@ class Organisation < ApplicationRecord
     CSV.generate do |csv|
       csv << CSV_HEADER
       Organisation.sortable_with_child_counts("name", "asc").each do |o|
-        mou_signed_at = o.signed_mou.attached? ? o.signed_mou.attachment.created_at : "-"
+        mou_signed_at = o.has_signed_mou? ? o.signed_mou.attachment.created_at : "-"
         csv << [o.name, o.created_at, mou_signed_at, o.locations_count, o.ips_count]
       end
     end

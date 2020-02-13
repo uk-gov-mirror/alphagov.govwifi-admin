@@ -41,7 +41,7 @@
           <%= organisation.created_at.strftime("%e %b %Y") %>
         </td>
         <td class="govuk-table__cell govuk-table__cell" scope="row">
-          <% if organisation.signed_mou.attached? %>
+          <% if organisation.has_signed_mou? %>
             <%= organisation.signed_mou.attachment.created_at.strftime("%e %b %Y") %>
           <% else %>
             -

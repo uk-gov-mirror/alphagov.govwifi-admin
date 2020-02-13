@@ -118,7 +118,7 @@ describe Organisation do
       first_location.ips = [first_ip, second_ip]
       second_location.ips << third_ip
 
-      first_organisation.locations << first_location
+     first_organisation.locations << first_location
       second_organisation.locations = [second_location, third_location]
 
       first_organisation.signed_mou.attach(
@@ -255,7 +255,21 @@ describe Organisation do
     end
 
     it "exports the organisation created date" do
-      expect(csv.first["Created at"]).to eq(org1.created_at.to_s)
+       expect(csv.first["Created at"]).to eq(org1.created_at.to_s)
+    end
+  end
+
+  describe "has_signed_mou?" do
+    let(:org) { create(:organisation) }
+
+    context "when an organisation has a signed MOU attached" do
+      before do
+        allow(org).to receive_message_chain("signed_mou.attached?").and_return(true)
+      end
+
+      it "returns true" do
+        expect(org.has_signed_mou?).to eq true
+      end
     end
   end
 end

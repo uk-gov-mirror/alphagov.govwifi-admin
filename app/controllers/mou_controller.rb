@@ -5,7 +5,7 @@ class MouController < ApplicationController
   end
 
   def create
-    redirect_path = replacing? ? replaced_mou_index_path : created_mou_index_path
+    redirect_path = current_organisation.has_signed_mou? ? replaced_mou_index_path : created_mou_index_path
     if params[:signed_mou]
       mime_type = Marcel::MimeType.for(params[:signed_mou])
       if mime_type.to_s == "application/pdf"
@@ -20,11 +20,5 @@ class MouController < ApplicationController
       redirect_path = mou_index_path
     end
     redirect_to redirect_path
-  end
-
-private
-
-  def replacing?
-    current_organisation.signed_mou.attached?
   end
 end
