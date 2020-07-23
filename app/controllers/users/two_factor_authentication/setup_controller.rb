@@ -27,7 +27,7 @@ class Users::TwoFactorAuthentication::SetupController < ApplicationController
     @otp_secret_key = params[:otp_secret_key]
     if current_user.authenticate_totp(params[:code], otp_secret_key: @otp_secret_key)
       current_user.otp_secret_key = @otp_secret_key
-      current_user.save(validate: false)
+      current_user.save!(validate: false)
       save_two_factor_method "app"
       flash[:notice] = "Two factor authentication setup successful"
       disable_2fa_checks_for_session
