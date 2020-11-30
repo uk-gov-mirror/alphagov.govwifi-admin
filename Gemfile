@@ -39,6 +39,7 @@ group :test do
   gem "rails-controller-testing"
   gem "rspec-rails", "~> 4"
   gem "rubocop-govuk"
+  gem "selenium-webdriver"
   gem "shoulda-matchers", "~> 4.4"
   gem "simplecov", require: false
   gem "simplecov-console", require: false
