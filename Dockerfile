@@ -36,7 +36,20 @@ ENV \
 WORKDIR /usr/src/app
 
 RUN apk add --no-cache --virtual .build-deps build-base && \
-  apk add --no-cache nodejs yarn mysql-dev bash
+  apk add --no-cache nodejs yarn mysql-dev bash && \
+  apk add firefox-esr openssl
+
+RUN wget https://github.com/mozilla/geckodriver/releases/download/v0.28.0/geckodriver-v0.28.0-linux32.tar.gz
+RUN tar -zxf geckodriver-v0.28.0-linux32.tar.gz -C /usr/bin
+
+RUN openssl req -newkey rsa:4096 \
+            -x509 \
+            -sha256 \
+            -days 3650 \
+            -nodes \
+            -subj "/C=GB/ST=London/L=London/O=GovWifi/CN=govwifi.dev" \
+            -out /etc/ssl.crt \
+            -keyout /etc/ssl.key
 
 COPY Gemfile Gemfile.lock .ruby-version ./
 ARG BUNDLE_INSTALL_FLAGS
