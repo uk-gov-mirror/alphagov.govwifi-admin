@@ -24,14 +24,14 @@ ActiveRecord::Migration.maintain_test_schema!
 Capybara.server = :puma, { Host: "ssl://#{Capybara.server_host}?key=/etc/ssl.key&cert=/etc/ssl.crt" }
 
 Capybara.register_driver :real_firefox do |app|
-  browser_options = ::Selenium::WebDriver::Firefox::Options.new()
-  browser_options.args << '--headless'
+  browser_options = ::Selenium::WebDriver::Firefox::Options.new
+  browser_options.args << "--headless"
 
   Capybara::Selenium::Driver.new(
     app,
     browser: :firefox,
     options: browser_options,
-    desired_capabilities: { accept_insecure_certs: true }
+    desired_capabilities: { accept_insecure_certs: true },
   )
 end
 
