@@ -39,8 +39,8 @@ RUN apk add --no-cache --virtual .build-deps build-base && \
   apk add --no-cache nodejs yarn mysql-dev bash && \
   apk add firefox-esr openssl
 
-RUN wget https://github.com/mozilla/geckodriver/releases/download/v0.28.0/geckodriver-v0.28.0-linux32.tar.gz
-RUN tar -zxf geckodriver-v0.28.0-linux32.tar.gz -C /usr/bin
+RUN wget -qO - https://github.com/mozilla/geckodriver/releases/download/v0.28.0/geckodriver-v0.28.0-linux32.tar.gz \
+  | tar -zxC /usr/bin
 
 RUN openssl req -newkey rsa:4096 \
             -x509 \
